@@ -17,19 +17,24 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
-import com.rizalanggoro.presence.ui.screens.ClassroomRoute
+import androidx.compose.ui.res.painterResource
+import com.rizalanggoro.presence.R
+import kotlinx.serialization.Serializable
+
+@Serializable
+data object SettingRoute
 
 @Composable
-fun SettingScreen(navController: NavController) {
+fun SettingScreen(
+    onNavigateBack: () -> Unit,
+    onNavigateToClassroom: () -> Unit,
+) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(text = "Setelan") },
                 navigationIcon = {
-                    IconButton(
-                        onClick = { navController.popBackStack() },
-                    ) {
+                    IconButton(onClick = onNavigateBack) {
                         Icon(
                             Icons.AutoMirrored.Rounded.ArrowBack,
                             contentDescription = "icon-button-back"
@@ -45,7 +50,13 @@ fun SettingScreen(navController: NavController) {
                 .fillMaxSize()
         ) {
             ListItem(
-                modifier = Modifier.clickable { navController.navigate(ClassroomRoute) },
+                leadingContent = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.round_class_24),
+                        contentDescription = "icon-classroom"
+                    )
+                },
+                modifier = Modifier.clickable { onNavigateToClassroom() },
                 headlineContent = { Text(text = "Kelas") },
                 supportingContent = { Text("Tambah, ubah, atau hapus kelas") },
             )

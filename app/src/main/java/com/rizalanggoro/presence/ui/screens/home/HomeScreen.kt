@@ -20,15 +20,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.rizalanggoro.presence.ui.components.ModalDatePicker
-import com.rizalanggoro.presence.ui.screens.SettingRoute
+import kotlinx.serialization.Serializable
 import java.text.SimpleDateFormat
 import java.util.Locale
 
+@Serializable
+data object HomeRoute
+
 @Composable
 fun HomeScreen(
-    navController: NavController,
+    onNavigateToSetting: () -> Unit,
 ) {
     val viewModel = hiltViewModel<HomeViewModel>()
     var isDatePickerVisible by remember { mutableStateOf(false) }
@@ -47,7 +49,7 @@ fun HomeScreen(
                             contentDescription = "button-change-date"
                         )
                     }
-                    IconButton(onClick = { navController.navigate(SettingRoute) }) {
+                    IconButton(onClick = onNavigateToSetting) {
                         Icon(
                             Icons.Rounded.Settings,
                             contentDescription = "button-setting"
