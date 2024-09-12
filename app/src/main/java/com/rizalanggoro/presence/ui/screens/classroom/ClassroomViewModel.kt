@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.rizalanggoro.presence.core.UiStateStatus
 import com.rizalanggoro.presence.data.dao.ClassroomDao
 import com.rizalanggoro.presence.data.entities.Classroom
+import com.rizalanggoro.presence.data.repositories.ExcelFileRepository
 import com.rizalanggoro.presence.ui.screens.classroom.ClassroomUiState.Action
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -16,6 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ClassroomViewModel @Inject constructor(
     private val classroomDao: ClassroomDao,
+    private val excelFileRepository: ExcelFileRepository,
 ) : ViewModel() {
     val classrooms = classroomDao.getAll()
     var uiState by mutableStateOf(ClassroomUiState())

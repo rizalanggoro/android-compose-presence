@@ -28,6 +28,7 @@ data object SettingRoute
 fun SettingScreen(
     onNavigateBack: () -> Unit,
     onNavigateToClassroom: () -> Unit,
+    onNavigateToImportConfig: () -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -56,8 +57,31 @@ fun SettingScreen(
                         contentDescription = "icon-classroom"
                     )
                 },
+                trailingContent = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.round_chevron_right_24),
+                        contentDescription = "icon-classroom"
+                    )
+                },
                 modifier = Modifier.clickable { onNavigateToClassroom() },
                 headlineContent = { Text(text = "Kelas") },
+                supportingContent = { Text("Tambah, ubah, atau hapus kelas") },
+            )
+            ListItem(
+                leadingContent = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.round_file_download_24),
+                        contentDescription = "icon-classroom"
+                    )
+                },
+                trailingContent = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.round_chevron_right_24),
+                        contentDescription = "icon-classroom"
+                    )
+                },
+                modifier = Modifier.clickable { onNavigateToImportConfig() },
+                headlineContent = { Text(text = "Impor") },
                 supportingContent = { Text("Tambah, ubah, atau hapus kelas") },
             )
         }

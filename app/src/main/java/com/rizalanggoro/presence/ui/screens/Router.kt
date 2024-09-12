@@ -4,8 +4,13 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.rizalanggoro.presence.ui.screens.classroom.ClassroomRoute
 import com.rizalanggoro.presence.ui.screens.classroom.ClassroomScreen
+import com.rizalanggoro.presence.ui.screens.classroom.detail.DetailClassroomRoute
+import com.rizalanggoro.presence.ui.screens.classroom.detail.DetailClassroomScreen
+import com.rizalanggoro.presence.ui.screens.config.ConfigRoute
+import com.rizalanggoro.presence.ui.screens.config.ConfigScreen
 import com.rizalanggoro.presence.ui.screens.home.HomeRoute
 import com.rizalanggoro.presence.ui.screens.home.HomeScreen
 import com.rizalanggoro.presence.ui.screens.setting.SettingRoute
@@ -19,7 +24,10 @@ fun Router() {
         // home
         composable<HomeRoute> {
             HomeScreen(
-                onNavigateToSetting = { navController.navigate(SettingRoute) }
+                onNavigateToSetting = { navController.navigate(SettingRoute) },
+                onNavigateToDetailClassroom = {
+                    navController.navigate(DetailClassroomRoute(it))
+                }
             )
         }
 
@@ -27,7 +35,8 @@ fun Router() {
         composable<SettingRoute> {
             SettingScreen(
                 onNavigateBack = { navController.popBackStack() },
-                onNavigateToClassroom = { navController.navigate(ClassroomRoute) }
+                onNavigateToClassroom = { navController.navigate(ClassroomRoute) },
+                onNavigateToImportConfig = { navController.navigate(ConfigRoute) },
             )
         }
 
@@ -36,6 +45,18 @@ fun Router() {
             ClassroomScreen(
                 onNavigateBack = { navController.popBackStack() },
             )
+        }
+        composable<DetailClassroomRoute> {
+            val arguments = it.toRoute<DetailClassroomRoute>()
+            DetailClassroomScreen(
+                classroomId = arguments.classroomId,
+                onNavigateBack = { navController.popBackStack() },
+            )
+        }
+
+        // import
+        composable<ConfigRoute> {
+            ConfigScreen()
         }
     }
 }

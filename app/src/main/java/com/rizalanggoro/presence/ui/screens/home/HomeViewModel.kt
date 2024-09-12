@@ -18,6 +18,8 @@ class HomeViewModel @Inject constructor(
     val currentDate: Long
         get() = _currentDate
 
+    val classrooms = classroomDao.getAll()
+
     fun updateDate(newDate: Long) {
         _currentDate = newDate
     }

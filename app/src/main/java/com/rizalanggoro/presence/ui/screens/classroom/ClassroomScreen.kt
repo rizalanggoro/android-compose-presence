@@ -2,6 +2,10 @@
 
 package com.rizalanggoro.presence.ui.screens.classroom
 
+import android.app.Activity
+import android.content.Intent
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -32,7 +36,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.rizalanggoro.presence.R
 import com.rizalanggoro.presence.core.UiStateStatus
 import com.rizalanggoro.presence.data.entities.Classroom
 import com.rizalanggoro.presence.ui.screens.classroom.ClassroomUiState.Action
@@ -62,6 +68,15 @@ fun ClassroomScreen(
     val snackbarHostState = remember {
         SnackbarHostState()
     }
+
+    val launcher =
+        rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+
+            }
+        }
 
     LaunchedEffect(uiState) {
         with(uiState) {
@@ -112,7 +127,22 @@ fun ClassroomScreen(
                             contentDescription = "icon-button-back"
                         )
                     }
-                })
+                },
+                actions = {
+                    IconButton(onClick = {
+                        launcher.launch(Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                            addCategory(Intent.CATEGORY_OPENABLE)
+                            type =
+                                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                        })
+                    }) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.round_attach_file_24),
+                            contentDescription = "icon-attach-file"
+                        )
+                    }
+                }
+            )
         },
         floatingActionButton = {
             FloatingActionButton(onClick = {

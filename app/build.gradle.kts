@@ -59,6 +59,12 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+//    splits {
+//        abi {
+//            isEnable = true
+//            isUniversalApk = true
+//        }
+//    }
 }
 
 dependencies {
@@ -97,6 +103,10 @@ dependencies {
 
     // serialization for type safe navigation
     implementation(libs.kotlinx.serialization.json)
+
+    // apache poi for reading excel file
+//    implementation(libs.poi)
+    implementation(libs.poi.ooxml)
 }
 
 kapt {
